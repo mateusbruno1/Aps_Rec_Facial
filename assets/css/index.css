@@ -1,0 +1,30 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+textarea:focus,
+input:focus,
+select:focus {
+  outline: 0;
+}
+#content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+form {
+  display: flex;
+  flex-direction: column;
+  width: 301px;
+}
+
+form input,
+form button {
+  margin-bottom: 5px;
+}
+
+button {
+  width: 301px;
+  height: 30px;
+}
