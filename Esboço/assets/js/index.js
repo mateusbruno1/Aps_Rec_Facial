@@ -18,7 +18,7 @@ recfac.addEventListener("click", function(event) {
 })
 
 const loadLabels = () => {
-  const labels = ['Mateus Bruno']
+  const labels = ['Mateus Bruno', 'Andrey Gil']
   return Promise.all(labels.map(async label => {
       const descriptions = []
       for (let i = 1; i <= 1; i++) {

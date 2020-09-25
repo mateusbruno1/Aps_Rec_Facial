@@ -35,18 +35,17 @@ function login() {
 
   function loadModels(){
     Promise.all([
-      faceapi.nets.tinyFaceDetector.loadFromUri('../../../public/models'),
-      faceapi.nets.faceLandmark68Net.loadFromUri('../../../public/models'),
-      faceapi.nets.faceRecognitionNet.loadFromUri('../../../public/models'),
-      faceapi.nets.faceExpressionNet.loadFromUri('../../../public/models'),
-      faceapi.nets.ageGenderNet.loadFromUri('../../../public/models'),
-      faceapi.nets.ssdMobilenetv1.loadFromUri('../../../public/models'),
+      faceapi.nets.tinyFaceDetector.loadFromUri('login/lib/models'),
+      faceapi.nets.faceLandmark68Net.loadFromUri('login/lib/models'),
+      faceapi.nets.faceRecognitionNet.loadFromUri('login/lib/models'),
+      faceapi.nets.faceExpressionNet.loadFromUri('login/lib/models'),
+      faceapi.nets.ageGenderNet.loadFromUri('login/lib/models'),
+      faceapi.nets.ssdMobilenetv1.loadFromUri('login/lib/models'),
     ]).then(camera())
    }  
 
 
     const loadLabels = () => {
-     
       const labels = ['Mateus Bruno']
       return Promise.all(labels.map(async label => {
           const descriptions = []
