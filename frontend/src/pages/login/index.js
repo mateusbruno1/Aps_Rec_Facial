@@ -1,16 +1,12 @@
-import React, {Component} from 'react';
+import React, {Component, useRef} from 'react';
 import Lottie from 'react-lottie';
 import scan from '../../assets/lotties/18134-facial-recognition.json';
 import medicos from '../../assets/lotties/21474-medical-frontliners.json';
-import Webcam from 'react-webcam';
-import { loadModels, getFullFaceDescription, createMatcher } from '../../face-api/face';
-import { loadLabels } from '../../face-api/descriptors/labels';
 import * as faceapi from 'face-api.js';
 // import { Container } from './styles';
-
-const WIDTH = 420;
-const HEIGHT = 420;
-const inputSize = 160;
+import './styles.css';
+// import {} from '../../face-api/lib/labels'
+import loadLabels from './fetch';
 
 const scanOptions = {
     loop: true,
@@ -30,137 +26,92 @@ const medicosOptions = {
     }
   };
 
+  const videoWidth = 648;
+  const videoHeight = 489;
 export default class Login extends Component {
 
   constructor(props) {
     super(props);
     this.webcam = React.createRef();
+    this.canvas = React.createRef();
     this.state = {
-      fullDesc: null,
-      detections: null,
-      descriptors: null,
-      faceMatcher: null,
-      match: null,
-      facingMode: null
+      initializing: false,
     };
   }
 
-  async componentDidMount() {
-    await loadModels();
-    const labels = await loadLabels();
-    console.log(labels);
-    this.setState({ faceMatcher: await createMatcher(labels) });
-    this.setInputDevice();
-  };
-
-  setInputDevice = () => {
-    navigator.mediaDevices.enumerateDevices().then(async devices => {
-      let inputDevice = await devices.filter(
-        device => device.kind === 'videoinput'
-      );
-      if (inputDevice.length < 2) {
-        await this.setState({
-          facingMode: 'user'
-        });
-      } else {
-        await this.setState({
-          facingMode: { exact: 'environment' }
-        });
-      }
-      this.startCapture();
-    });
-  };
-
-  startCapture = () => {
-    this.interval = setInterval(() => {
-      this.capture();
-    }, 1500);
-  };
-
-  componentWillUnmount() {
-    clearInterval(this.interval);
+  componentDidMount() {
+    const loadModels = async () => {
+      const MODEL_URL = process.env.PUBLIC_URL + '/models';
+      this.setState({
+        initializing: true
+      });
+      Promise.all([
+        faceapi.nets.tinyFaceDetector.loadFromUri(MODEL_URL),
+        faceapi.nets.faceLandmark68Net.loadFromUri(MODEL_URL),
+        faceapi.nets.faceRecognitionNet.loadFromUri(MODEL_URL),
+        faceapi.nets.faceExpressionNet.loadFromUri(MODEL_URL),
+      ]).then(this.startVideo());
+    }
+    loadModels();
   }
 
-  capture = async () => {
-    if (!!this.webcam.current) {
-      await getFullFaceDescription(
-        this.webcam.current.getScreenshot(),
-        inputSize
-      ).then(fullDesc => {
-        if (!!fullDesc) {
-          this.setState({
-            detections: fullDesc.map(fd => fd.detection),
-            descriptors: fullDesc.map(fd => fd.descriptor)
-          });
-        }
-      });
+  startVideo() {
+    const constraints = { audio: false, video: { width: videoWidth, height: videoHeight } };
+    navigator.mediaDevices
+      .getUserMedia(constraints)
+      .then(function(mediaStream) {
+        const video = document.querySelector("video");
 
-      if (!!this.state.descriptors && !!this.state.faceMatcher) {
-        let match = await this.state.descriptors.map(descriptor =>
-          this.state.faceMatcher.findBestMatch(descriptor)
-        );
-        this.setState({ match });
+        video.srcObject = mediaStream;
+        video.onloadedmetadata = function(e) {
+          video.play();
+        };
+      })
+      .catch(function(err) {
+        console.log(err.name + ': ' + err.message);
+      })
+  }
+
+  handleVideoOnPlay = () => {
+    setInterval(async() => {
+      if (this.state.initializing) {
+        this.setState({
+          initializing: false
+        });
       }
-    }
-  };
+      this.canvas.current.innerHTML = faceapi.createCanvasFromMedia(this.webcam.current);
+      const displaySize = {
+        width: videoWidth,
+        height: videoHeight
+      }
+      const labels = await loadLabels();
+      faceapi.matchDimensions(this.canvas.current, displaySize);
+      const detections = await faceapi.detectAllFaces(this.webcam.current, new faceapi.TinyFaceDetectorOptions).withFaceLandmarks().withFaceExpressions();
+      const resizesDetections = faceapi.resizeResults(detections, displaySize);
+      this.canvas.current.getContext('2d').clearRect(0, 0, videoWidth, videoHeight);
+      faceapi.draw.drawDetections(this.canvas.current, detections);
+      faceapi.draw.drawFaceLandmarks(this.canvas.current, detections);
+      faceapi.draw.drawFaceExpressions(this.canvas.current, detections);
+
+      console.log(detections);
+
+    }, 1000)
+  }
 
     render(){      
-      const { detections, match, facingMode } = this.state;
-    let videoConstraints = null;
-    let camera = '';
-    if (!!facingMode) {
-      videoConstraints = {
-        width: WIDTH,
-        height: HEIGHT,
-        facingMode: facingMode
-      };
-      if (facingMode === 'user') {
-        camera = 'Front';
-      } else {
-        camera = 'Back';
-      }
-    }
-
-    let drawBox = null;
-    if (!!detections) {
-      drawBox = detections.map((detection, i) => {
-        let _H = detection.box.height;
-        let _W = detection.box.width;
-        let _X = detection.box._x;
-        let _Y = detection.box._y;
-        return (
-          <div key={i}>
-            <div
-              style={{
-                position: 'absolute',
-                border: 'solid',
-                borderColor: 'blue',
-                height: _H,
-                width: _W,
-                transform: `translate(${_X}px,${_Y}px)`
-              }}
-            >
-              {!!match && !!match[i] ? (
-                <p
-                  style={{
-                    backgroundColor: 'blue',
-                    border: 'solid',
-                    borderColor: 'blue',
-                    width: _W,
-                    marginTop: 0,
-                    color: '#fff',
-                    transform: `translate(-3px,${_H}px)`
-                  }}
-                >
-                  {match[i]._label}
-                </p>
-              ) : null}
+        return(
+          <div>
+            <span>{this.state.initializing ? 'Iniciando' : 'Pronto'}</span>
+            <div className="display-flex justify-content-center">
+              <video 
+                ref={this.webcam} 
+                autoPlay 
+                onPlay={this.handleVideoOnPlay}
+                />
+              <canvas 
+                ref={this.canvas} className="position-absolute" />
             </div>
           </div>
-        );
-      });
-    }
-        return(
             // <div>
             //     <h1>Login</h1>
             //     <Lottie 
@@ -189,38 +140,6 @@ export default class Login extends Component {
             //     <video id="video" width="301px" height="301px" muted></video>
             //   </div>
             // </div>
-            <div
-        className="Camera"
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center'
-        }}
-      >
-        <p>Camera: {camera}</p>
-        <div
-          style={{
-            width: WIDTH,
-            height: HEIGHT
-          }}
-        >
-          <div style={{ position: 'relative', width: WIDTH }}>
-            {!!videoConstraints ? (
-              <div style={{ position: 'absolute' }}>
-                <Webcam
-                  audio={false}
-                  width={WIDTH}
-                  height={HEIGHT}
-                  ref={this.webcam}
-                  screenshotFormat="image/jpeg"
-                  videoConstraints={videoConstraints}
-                />
-              </div>
-            ) : null}
-            {!!drawBox ? drawBox : null}
-          </div>
-        </div>
-      </div>
         )
     }
 }

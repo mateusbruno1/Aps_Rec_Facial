@@ -5,8 +5,6 @@ import medicos from '../../assets/lotties/21474-medical-frontliners.json';
 // import * as canvas from 'canvas';
 import * as faceapi from 'face-api.js';
 
-
-
 function login() {
 
   const scanOptions = {
