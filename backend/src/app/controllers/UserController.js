@@ -17,6 +17,15 @@ class UserControlller{
 
     return res.json(user)
   }
+  async update(req, res) {
+
+   const user = await User.findByPk(req.userId);
+   
+   user.update(req.body);
+
+   return res.json(user)
+  }
+
 }
 
 export default new UserControlller();

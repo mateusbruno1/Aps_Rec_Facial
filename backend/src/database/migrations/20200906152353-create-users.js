@@ -22,8 +22,24 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull:false,
        },
-       address:{
+       street:{
         type: Sequelize.STRING,
+        allowNull:false, 
+       },
+       state:{
+        type: Sequelize.STRING,
+        allowNull:false, 
+       },
+       neighborhood:{
+        type: Sequelize.STRING,
+        allowNull:false, 
+       },
+       cep:{
+        type: Sequelize.STRING,
+        allowNull:false, 
+       },
+       number:{
+        type: Sequelize.INTEGER,
         allowNull:false, 
        },
        phone:{
@@ -38,6 +54,15 @@ module.exports = {
         type: Sequelize.BOOLEAN,
         allowNull:false,
         defaultValue:false
+       },
+       medic:{
+        type: Sequelize.BOOLEAN,
+        allowNull:false,
+        defaultValue:false
+       },
+       crm:{
+        type: Sequelize.STRING,
+        
        },
        access_level:{
         type: Sequelize.INTEGER,
