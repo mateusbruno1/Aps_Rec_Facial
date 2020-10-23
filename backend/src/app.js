@@ -12,6 +12,7 @@ class App {
     this.server.use(express.json());
   }
   routes() {
+    this.server.use(cors(/* {origin:`https...`} */));
     this.server.use(routes);
     
   }

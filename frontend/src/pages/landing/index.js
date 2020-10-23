@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Link} from 'react-router-dom';
 import { Container } from './styles.js';
 import Lottie from 'react-lottie';
 import medicos from '../../assets/lotties/21474-medical-frontliners.json';
@@ -34,8 +35,14 @@ export default class Landing extends Component {
                     </div>
 
                     <div className="div-botoes">
-                        <button className="login">Login</button>
-                        <button className="cadastre-se">Cadastre-se</button>
+                        <Link>
+                            <button className="login">Login</button>
+                        </Link>
+                        
+                        <Link to="/cadastro">
+                         <button className="cadastre-se">Cadastre-se</button>
+                        </Link>
+                        
                     </div>
                 </div>
 

@@ -49,13 +49,14 @@ export const Container = styled.div`
         }
 
         .div-botoes {
-
             padding-top: 150px;
             flex-direction: column;
             display: flex;
             width: 100%;
             align-self: center;
-
+            a{
+                margin-left:40%;
+            }
             .login {
                 cursor: pointer;
                 height: 64px;
