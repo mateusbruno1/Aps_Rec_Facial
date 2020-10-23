@@ -14,7 +14,7 @@ function Cadastro() {
            name: nome,
            email: email,
            cep: cep,
-           esstate: estado,
+           state: estado,
            city: cidade,
            street: endereco,
            neighborhood: bairro,
