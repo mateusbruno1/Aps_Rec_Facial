@@ -28,29 +28,33 @@ function Cadastro() {
         setNeighborhood(data.bairro);
         setCity(data.city);
     } catch (error) {
-        console.log('erro ao retornar cep')
+
     }
 
   }
 
-  async function handleSubmit({nome,email,cep,estado,cidade,endereco,bairro,numero,celular,crm,senha}){
+  async function handleSubmit({nome,email,cep,estado,cidade,endereco,bairro,numero,celular,crm,senha,senha2}){
     try {
-        const user = await api.post('/users',{
-           name: nome,
-           email: email,
-           cep: cep,
-           state: estado,
-           city: cidade,
-           street: endereco,
-           neighborhood: bairro,
-           number: numero,
-           phone: celular,
-           password: senha,
-           medic:medico
-        })
-        alert('Cadastrado com Sucesso');
+        if(senha !== senha2){
+          alert('A senha e a confirmação de senha devem ser iguais ')
+        }else{
+          const user = await api.post('/users',{
+            name: nome,
+            email: email,
+            cep: cep,
+            state: estado,
+            city: cidade,
+            street: endereco,
+            neighborhood: bairro,
+            number: numero,
+            phone: celular,
+            password: senha,
+            medic:medico
+         })
+         alert('Cadastrado com Sucesso');
+        }
     } catch (error) {
-
+         alert('Erro ao cadastrar o Usuario tente novamente');
     }
   }
   return(
