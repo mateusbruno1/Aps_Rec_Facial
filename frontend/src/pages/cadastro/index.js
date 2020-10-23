@@ -1,12 +1,37 @@
 import React,{useState} from 'react';
 import { Form, Input } from '@rocketseat/unform';
-import cep from 'cep-promise';
 import api from '../../services/api';
 import { Container } from './styles';
 
 function Cadastro() {
 
   const [medico,setMedico] = useState(false);
+  const [state,setState] = useState();
+  const [city,setCity] = useState();
+  const [neighborhood,setNeighborhood] = useState();
+  const [street,setStreet] = useState();
+
+  const cep = {
+      estado:state,
+      cidade:city,
+      bairro:neighborhood,
+      endereco:street
+  }
+
+  async function retornaCep(){
+    try {
+        const cepNumber = document.getElementById("cep").value
+        const {data} = await api.post(`/cep/${cepNumber}`)
+
+        setStreet(data.street);
+        setState(data.state);
+        setNeighborhood(data.bairro);
+        setCity(data.city);
+    } catch (error) {
+        console.log('erro ao retornar cep')
+    }
+
+  }
 
   async function handleSubmit({nome,email,cep,estado,cidade,endereco,bairro,numero,celular,crm,senha}){
     try {
@@ -19,13 +44,13 @@ function Cadastro() {
            street: endereco,
            neighborhood: bairro,
            number: numero,
-           phone: celular, 
+           phone: celular,
            password: senha,
            medic:medico
         })
-        console.log(user);
+        alert('Cadastrado com Sucesso');
     } catch (error) {
-        
+
     }
   }
   return(
@@ -33,16 +58,16 @@ function Cadastro() {
 
         <h1>Formulário de Cadastro</h1>
 
-        <Form className="form" onSubmit={handleSubmit}>
+        <Form className="form" onSubmit={handleSubmit} initialData={cep}>
                 <Input type="text" name="nome"    placeholder="Digite seu nome completo" required/>
                 <Input type="text" name="email"    placeholder="Digite seu e-mail" required/>
-                <Input type="text" name="cep"   placeholder="Digite seu CEP" required/>
-                <Input type="text" name="estado"    placeholder="Digite sua UF" required/>
+                <Input type="text" name="cep" id="cep" onBlur={()=>retornaCep()} placeholder="Digite seu CEP" required/>
+                <Input type="text" name="estado"   placeholder="Digite sua UF" required/>
                 <Input type="text" name="cidade"    placeholder="Digite sua cidade" required/>
                 <Input type="text" name="endereco"    placeholder="Digite seu endereço" required/>
                 <Input type="text" name="bairro"    placeholder="Digite seu bairro" required/>
-                <Input type="text" name="numero"    placeholder="Digite o nº da residência" required/>
-                <Input type="text" name="celular"    placeholder="Digite o seu celular" required/>
+                <Input type="number" name="numero"    placeholder="Digite o nº da residência" required/>
+                <Input type="phone" name="celular"    placeholder="Digite o seu celular" required/>
 
             <div className="div-select">
                 <label>Você é um médico?</label>
