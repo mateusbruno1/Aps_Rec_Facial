@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js" ></script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Reconhecimento Facial</title>
@@ -8,16 +9,19 @@
   </head>
   <body>
     <div id="content">
-      <h1>login</h1>
-      <form action="">
-        <input type="text" name="" id="" placeholder="Nome de Usuario" />
-        <input type="password" name="" id="" placeholder="Senha" />
-        <button>Entrar</button>
-        <button>Cadastrar</button>
-      </form>
-      <button id="RecFac">Reconhecimento Facial</button>
+      <h1>Login</h1>
+      <div class="div-form">
+        <form action="">
+          <input type="text" name="" id="" placeholder="Digite seu usuário" />
+          <input type="password" name="" id="" placeholder="Digite sua senha" />
+          <button>Entrar</button>
+          <button class="cadastro">Cadastrar</button>
+        </form>
+        <button id="RecFac">Reconhecimento Facial</button>
+        <video class="video" autoplay id="can" width="301" height="301px" muted></video>
+      </div>
 
-      <video autoplay id="can" width="301" height="301px" muted></video>
+      
       <script src="./assets/lib/face-api/face-api.js"></script>
       <script src="./assets/js/index.js"></script>
     </div>
