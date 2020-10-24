@@ -11,19 +11,18 @@
     <div id="content">
       <h1>Login</h1>
       <div class="div-form">
-        <form action="">
-          <input type="text" name="" id="" placeholder="Digite seu usuário" />
-          <input type="password" name="" id="" placeholder="Digite sua senha" />
-          <button>Entrar</button>
-          <button class="cadastro">Cadastrar</button>
+        <form>
+          <input type="text" name="" id="user" placeholder="Digite seu usuário" />
+          <input type="password" name="" id="password" placeholder="Digite sua senha" />
         </form>
+        <button id="btnlogin" class="login">Entrar</button>   
+        <button id="btncadastrar" class="cadastro">Cadastrar</button>
         <button id="RecFac">Reconhecimento Facial</button>
         <video class="video" autoplay id="can" width="301" height="301px" muted></video>
       </div>
-
-      
       <script src="./assets/lib/face-api/face-api.js"></script>
       <script src="./assets/js/index.js"></script>
+      <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     </div>
   </body>
 </html>

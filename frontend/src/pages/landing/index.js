@@ -14,7 +14,9 @@ const medicosOptions = {
       preserveAspectRatio: "xMidYMid slice"
     }
   };
-
+  function redirecionarLogin(){
+    document.location.href = 'http://127.0.0.1:5500/Esbo%C3%A7o/index.html';
+  }
 export default class Landing extends Component {
 
     constructor(props) {
@@ -36,19 +38,19 @@ export default class Landing extends Component {
 
                     <div className="div-botoes">
                         <Link>
-                            <button className="login">Login</button>
+                            <button onClick={()=>{redirecionarLogin()}} className="login">Login</button>
                         </Link>
-                        
+
                         <Link to="/cadastro">
                          <button className="cadastre-se">Cadastre-se</button>
                         </Link>
-                        
+
                     </div>
                 </div>
 
                 <div className="right">
                     <div className="div-anim">
-                        <Lottie 
+                        <Lottie
                             options={medicosOptions}
                             height={600}
                             width={600}

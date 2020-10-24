@@ -65,7 +65,7 @@ input::placeholder {
   color: lightgray
 }
 
-form button {
+.login {
   font-family: 'Montserrat', sans-serif;
   cursor: pointer;
   height: 64px;
@@ -83,7 +83,7 @@ form button {
   font-size: 18px;
 }
 
-form .cadastro {
+.cadastro {
   font-family: 'Montserrat', sans-serif;
   cursor: pointer;
   height: 64px;

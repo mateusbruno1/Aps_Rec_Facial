@@ -1,4 +1,6 @@
+
 const video = document.querySelector("video");
+
 async function camera(){
   const videoStream = await navigator.mediaDevices.getUserMedia({video:true});
   video.srcObject = videoStream;
@@ -75,7 +77,29 @@ video.addEventListener('play', async () => {
           new faceapi.draw.DrawTextField([
               `${label} (${parseInt(distance * 100, 10)})`
           ], box.bottomRight).draw(canvas)
+          console.log(label);
       })
   }, 100)
 })
+
+const btnLogin = document.querySelector('#btnlogin')
+btnLogin.addEventListener("click", function(event) {
+    async function login(){
+        const email = document.querySelector('#user').value
+        const password = document.querySelector('#password').value
+
+        const {data} = await axios.post('http://127.0.0.1:3333/sessions',{
+            email,
+            password
+        });
+
+        console.log(data);
+    }
+    login();
     
+})
+const btnCadastrar = document.querySelector('#btncadastrar')
+btnCadastrar.addEventListener("click", function(event) {
+    window.location= ("http://127.0.0.1:3000/cadastro");
+
+})
