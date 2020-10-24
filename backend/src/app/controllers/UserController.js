@@ -28,7 +28,7 @@ class UserControlller{
   async index(req,res){
     const {name} = req.params;
     
-    const {id,email,medic} = await User.findOne({
+    const {id,email,medic,provider} = await User.findOne({
       where:{
         name
       }
@@ -40,6 +40,7 @@ class UserControlller{
         name,
         email,
         medic,
+        provider
     }})
   }
 
