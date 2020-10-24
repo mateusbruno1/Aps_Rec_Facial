@@ -5,7 +5,6 @@ export const Container = styled.div`
     /* display: flex;
     flex-direction: column;
     position: relative; */
-    height: 100vh;
     width: 100%;
 
     .left {
@@ -15,7 +14,7 @@ export const Container = styled.div`
         height: 100%;
         left: 0px;
         top: 0px;
-        background-color: #e5f0ff;
+        background-color: #eaf3ff;
 
         .div-texto {
 
@@ -25,12 +24,13 @@ export const Container = styled.div`
             h1 {
                 font-family: Montserrat;
                 color: #5d90d0;
-                font-size: 48px;
+                font-size: 52px;
                 font-weight: 700;
                 align-self: center;
                 text-align: left;
                 border-block: block;
                 margin-left: 48px;
+                margin-right: 48px;
                 margin-top: 78px;
                 cursor: default;
             }
@@ -38,8 +38,9 @@ export const Container = styled.div`
             h2 {
                 font-family: Montserrat;
                 color: #224161;
-                font-size: 20px;
+                font-size: 24px;
                 margin-left: 48px;
+                margin-right: 48px;
                 margin-top: -20px;
                 font-weight: 400;
                 align-self: center;
@@ -53,6 +54,7 @@ export const Container = styled.div`
             flex-direction: column;
             display: flex;
             width: 100%;
+            justify-content: center;
             align-self: center;
             a{
                 margin-left:40%;
@@ -60,9 +62,8 @@ export const Container = styled.div`
             .login {
                 cursor: pointer;
                 height: 64px;
-                width: 40%;
+                width: 90%;
                 float: left;
-                margin-left: 48px;
                 background-color: #d4e6ff;
                 border-radius: 8px;
                 border: none;
@@ -73,6 +74,7 @@ export const Container = styled.div`
 
 
                 font-family: Montserrat;
+                font-size: 20px;
                 font-weight: 700;
                 color: #224161;
 
@@ -85,9 +87,8 @@ export const Container = styled.div`
             .cadastre-se {
                 cursor: pointer;
                 height: 64px;
-                width: 40%;
+                width: 90%;
                 float: left;
-                margin-left: 48px;
                 background-color: #4f877d;
                 border-radius: 8px;
                 border: none;
@@ -98,6 +99,7 @@ export const Container = styled.div`
 
                 font-family: Montserrat;
                 font-weight: 700;
+                font-size: 20px;
                 color: #fff;
 
                 :hover {
@@ -108,7 +110,7 @@ export const Container = styled.div`
     }
 
     .right {
-        background-color: #eaf3ff;
+        background-color: #DBEAF5;
         position: absolute;
         float: right;
         width: 50%;
@@ -119,7 +121,7 @@ export const Container = styled.div`
         .div-anim {
             width: 100%;
             right: 0px;
-            padding-top: 180px
+            margin-top: 15%
         }
 
     }
