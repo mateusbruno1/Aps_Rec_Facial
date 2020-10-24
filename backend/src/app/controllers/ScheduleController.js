@@ -50,10 +50,20 @@ class ScheduleController {
         medic_id: req.userId,
         canceled_at: null,
         date:{
-          [Op.lt]: new Date(),
+          [Op.gt]: new Date(),
         }
       },
-      order: ['date'],
+      order: [
+        'date'
+      ],
+      attributes: ['id', 'date', 'past', 'cancelable'],
+      include: [
+        {
+          model: User,
+          as: 'user',
+          attributes: ['id', 'name'],
+        },
+      ]
     })
     return res.json(appointments);
   }

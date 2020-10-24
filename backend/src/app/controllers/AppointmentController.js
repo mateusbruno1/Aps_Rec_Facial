@@ -3,6 +3,7 @@ import User from '../models/User';
 import { startOfHour, parseISO, isBefore, format, subHours } from 'date-fns';
 import pt from 'date-fns/locale/pt';
 import * as Yup from 'yup';
+import { Op } from 'sequelize'
 
 
 class AppointmentController {
@@ -80,6 +81,17 @@ class AppointmentController {
       return res.status(400)
         .json({ error: 'Appointment date is not AVailable ' })
     }
+
+    const medic = await User.findByPk(medic_id);
+    const user  = await User.findByPk(req.userId);
+
+
+    let quantidade = medic.quantity_consults + 1;
+    let quanttidade_paciente = medic.quantity_consults + 1;
+    
+    medic.update({quantity_consults:quantidade});
+    user.update({quantity_consults:quantidade_paciente});
+
     const appointment = await Appointment.create({
       user_id: req.userId,
       medic_id,
@@ -125,6 +137,33 @@ class AppointmentController {
       appointment,
     })
     return res.json(appointment);
+  }
+  async next(req,res){
+    const { page = 1 } = req.query;
+    console.log(req.query);
+    const appointments = await Appointment.findAll({
+      where: {
+        user_id: req.userId,
+        canceled_at: null,
+        date:{
+          [Op.gt]: new Date(),
+        }
+      },
+      order: [
+        'date'
+      ],
+      limit: 5,
+      offset: (page - 1) * 5,
+      attributes: ['id', 'date', 'past', 'cancelable'],
+      include: [
+        {
+          model: User,
+          as: 'medic',
+          attributes: ['id', 'name'],
+        },
+      ]
+    })
+    return res.json(appointments)
   }
 }
 

@@ -25,6 +25,23 @@ class UserControlller{
 
    return res.json(user)
   }
+  async index(req,res){
+    const {name} = req.params;
+    
+    const {id,email,medic} = await User.findOne({
+      where:{
+        name
+      }
+    });
+
+    return res.json( {
+      user:{
+        id,
+        name,
+        email,
+        medic,
+    }})
+  }
 
 }
 
