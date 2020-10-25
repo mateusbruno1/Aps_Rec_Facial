@@ -118,6 +118,7 @@ export const Container = styled.div`
         table {
           border-collapse: collapse;
           width: 100%;
+
           cursor: default;
           }
           tr {
@@ -221,7 +222,8 @@ export const Container = styled.div`
 
       .table-down{
         width: 80%;
-        height: 100%;
+        min-height:290px;
+        height: 60%;
         display:flex;
         flex-direction:column;
         align-items:center;

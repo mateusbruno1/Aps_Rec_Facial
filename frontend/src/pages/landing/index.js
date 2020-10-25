@@ -16,7 +16,7 @@ const medicosOptions = {
   };
 
   function redirecionarLogin(){
-    document.location.href = 'http://127.0.0.1:5500/';
+    document.location.href = 'http://127.0.0.1:5500/Esbo%C3%A7o/';
   }
 export default class Landing extends Component {
 
