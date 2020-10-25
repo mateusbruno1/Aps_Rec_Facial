@@ -11,8 +11,8 @@ import authMiddlewares from './app/middlewares/auth'
 import CepController from './app/controllers/CepController';
 
 routes.post('/users',UserController.store);
-routes.get('/users/:name',UserController.index);
 routes.post('/sessions',SessionController.store);
+routes.get('/sessions/:nome',SessionController.recfacial);
 routes.post('/cep/:cepNumber',CepController.find);
 
 routes.use(authMiddlewares);

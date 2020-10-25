@@ -27,6 +27,27 @@ class SessionController{
     } )
   })
  }
+ async recfacial(req,res){ 
+  const {nome} = req.params;
+  const user = await User.findOne({ where : {name:nome}});
+  if (!user){
+    return res.status(401).json({error:'User not found'});
+  }
+ 
+  const {id,name,medic,provider} = user;
+
+  return res.json({
+    user:{
+      id,
+      name,
+      medic,
+      provider
+    },
+    token: jwt.sign({id}, authConfig.secret,{
+      expiresIn: authConfig.expiresIn,
+    } )
+  })
+ }
 }
 
 export default new SessionController();

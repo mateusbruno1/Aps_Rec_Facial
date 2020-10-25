@@ -33,7 +33,7 @@ function Cadastro() {
 
   }
 
-  async function handleSubmit({nome,email,cep,estado,cidade,endereco,bairro,numero,celular,crm,senha,senha2}){
+  async function handleSubmit({nome,email,cep,estado,cidade,endereco,bairro,numero,especiality,celular,crm,senha,senha2}){
     try {
         if(senha !== senha2){
           alert('A senha e a confirmação de senha devem ser iguais ')
@@ -49,7 +49,10 @@ function Cadastro() {
             number: numero,
             phone: celular,
             password: senha,
-            medic:medico
+            medic:medico,
+            crm,
+            especiality
+
          })
          alert('Cadastrado com Sucesso');
         }
@@ -83,6 +86,9 @@ function Cadastro() {
 
             {medico
             ? <Input type="text" name="crm"   placeholder="Digite seu registro no Conselho Regional de Medicina (CRM)" required/>
+            : null}
+            {medico
+            ? <Input type="text" name="especiality"   placeholder="Digite sua especialidade" required/>
             : null}
 
             <Input type="password" name="senha"    placeholder="Crie uma senha" required/>

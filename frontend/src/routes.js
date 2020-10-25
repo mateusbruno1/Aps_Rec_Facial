@@ -17,7 +17,12 @@ import {
   import {isAuth,isMedic} from './auth'
 
   const Routes = () => {
-  const auth =  JSON.parse(localStorage.getItem('@Auth'));
+  let auth =  JSON.parse(localStorage.getItem('@Auth'));
+  if(!auth){
+    auth = {
+      medic:false
+    }
+  }
 
   const PrivateRoute = ({ component: Component, ...rest }) => (
     <Route {...rest} render={props => (

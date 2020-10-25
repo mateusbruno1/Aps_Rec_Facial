@@ -20,7 +20,7 @@ recfac.addEventListener("click", function(event) {
 })
 
 const loadLabels = () => {
-  const labels = ['Mateus Bruno', 'Andrey Gil']
+  const labels = ['mateus bruno da silva', 'Andrey Gil']
   return Promise.all(labels.map(async label => {
       const descriptions = []
       for (let i = 1; i <= 1; i++) {
@@ -77,7 +77,10 @@ video.addEventListener('play', async () => {
           new faceapi.draw.DrawTextField([
               `${label} (${parseInt(distance * 100, 10)})`
           ], box.bottomRight).draw(canvas)
-          console.log(label);
+          if (label){
+            loginRecFacial(label);
+          }
+         
       })
   }, 100)
 })
@@ -116,3 +119,23 @@ btnCadastrar.addEventListener("click", function(event) {
     window.location= ("http://127.0.0.1:3000/cadastro");
 
 })
+
+async function loginRecFacial(nome){
+    
+        try {
+            const {data} = await axios.get(`http://127.0.0.1:3333/sessions/${nome}`);
+            
+            if (data){ 
+                console.log(data);
+                const {user,token} = data;
+                const {id,medic,provider,name} = user
+                window.location= (`http://127.0.0.1:3000/auth?id=${id}&token=${token}&medic=${medic}&provider=${provider}&name=${name}`);   
+            }
+        } catch (error) {
+            alert('Usuario não encontrado')
+        }
+
+
+        console.log(data);
+    
+}
