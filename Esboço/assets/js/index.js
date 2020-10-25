@@ -87,11 +87,24 @@ btnLogin.addEventListener("click", function(event) {
     async function login(){
         const email = document.querySelector('#user').value
         const password = document.querySelector('#password').value
+        try {
+            const {data} = await axios.post('http://127.0.0.1:3333/sessions',{
+                email,
+                password
+            });
+            
+            if (data){ 
 
-        const {data} = await axios.post('http://127.0.0.1:3333/sessions',{
-            email,
-            password
-        });
+                console.log(data);
+                const {user,token} = data;
+                const {id,medic,provider} = user;
+              
+                window.location= (`http://127.0.0.1:3000/home?id=${id}&token=${token}&medic=${medic}&provider=${provider}`);   
+            }
+        } catch (error) {
+            alert('Usuario não encontrado')
+        }
+
 
         console.log(data);
     }
