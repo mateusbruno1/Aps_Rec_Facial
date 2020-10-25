@@ -3,6 +3,7 @@ import api from '../../services/api';
 import patient from '../../assets/svg/patient.svg';
 import moment from 'moment'
 import {Container} from './styles';
+import Modal from 'react-modal';
 
 export default class HomePacient extends Component {
 
@@ -11,7 +12,9 @@ export default class HomePacient extends Component {
     this.state = {
       consultas: [],
 
-      listagem: []
+      listagem: [],
+
+      nome: '',
     }
   }
 
@@ -20,6 +23,9 @@ export default class HomePacient extends Component {
     const data = JSON.parse(auth)
     this.getConsultas();
     this.getListaMedico();
+    this.setState({
+      nome: data.name
+    })
   }
   async getConsultas(){
     const auth = JSON.parse(localStorage.getItem('@Auth'));
@@ -62,7 +68,7 @@ export default class HomePacient extends Component {
           <div className="left">
            <div className="perfil">
              <img src={patient} className="perfil-img" />
-             <text>Olá, Andrey!</text>
+             <text>Olá, {this.state.nome}!</text>
            </div>
            <button className="botao-sair">Sair</button>
            <label className="version">v 0.0.1</label>
