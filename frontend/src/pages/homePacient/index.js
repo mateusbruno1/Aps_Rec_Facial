@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import api from '../../services/api';
 import patient from '../../assets/svg/patient.svg';
-
+import moment from 'moment'
 import {Container} from './styles';
 
 export default class HomePacient extends Component {
@@ -9,130 +9,52 @@ export default class HomePacient extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      consultas: [
-        {
-          doutor: 'Fulano de tal',
-          hora: 'Hoje'
-        },
-        {
-          doutor: 'ciclano de tal',
-          hora: 'Amanhã'
-        },
-        {
-          doutor: 'Fulano de tal',
-          hora: 'Hoje'
-        },
-        {
-          doutor: 'Fulano de tal',
-          hora: 'Hoje'
-        },
-        {
-          doutor: 'Fulano de tal',
-          hora: 'Hoje'
-        },
-        {
-          doutor: 'Fulano de tal',
-          hora: 'Hoje'
-        },
-        {
-          doutor: 'Fulano de tal',
-          hora: 'Hoje'
-        },
-        {
-          doutor: 'Fulano de tal',
-          hora: 'Hoje'
-        },
-        {
-          doutor: 'Fulano de tal',
-          hora: 'Hoje'
-        },
-        {
-          doutor: 'Fulano de tal',
-          hora: 'Hoje'
-        },
-        {
-          doutor: 'Fulano de tal',
-          hora: 'Hoje'
-        },
-        {
-          doutor: 'Fulano de tal',
-          hora: 'Hoje'
-        },
-        {
-          doutor: 'Fulano de tal',
-          hora: 'Hoje'
-        },
-        {
-          doutor: 'Fulano de tal',
-          hora: 'Hoje'
-        },
-        {
-          doutor: 'Fulano de tal',
-          hora: 'Hoje'
-        },
-        {
-          doutor: 'Fulano de tal',
-          hora: 'Hoje'
-        },
-        {
-          doutor: 'Fulano de tal',
-          hora: 'Hoje'
-        },
-        {
-          doutor: 'Fulano de tal',
-          hora: 'Hoje'
-        },
+      consultas: [],
 
-      ],
-      listagem: [
-        {
-          doutor: 'fuilano de tal',
-          especialidade: 'Clinico geral',
-          consultas: 3
-        },
-        {
-          doutor: 'ciclano de tal',
-          especialidade: 'Pediatra',
-          consultas: 2
-        },
-        {
-          doutor: 'fuilano de tal',
-          especialidade: 'Clinico geral',
-          consultas: 3
-        },
-        {
-          doutor: 'ciclano de tal',
-          especialidade: 'Pediatra',
-          consultas: 2
-        },
-        {
-          doutor: 'fuilano de tal',
-          especialidade: 'Clinico geral',
-          consultas: 3
-        },
-        {
-          doutor: 'ciclano de tal',
-          especialidade: 'Pediatra',
-          consultas: 2
-        },
-        {
-          doutor: 'fuilano de tal',
-          especialidade: 'Clinico geral',
-          consultas: 3
-        },
-        {
-          doutor: 'ciclano de tal',
-          especialidade: 'Pediatra',
-          consultas: 2
-        }
-      ]
+      listagem: []
     }
   }
 
   componentDidMount(){
     const auth = localStorage.getItem('@Auth')
     const data = JSON.parse(auth)
-    console.log(data.medic);
+    this.getConsultas();
+    this.getListaMedico();
+  }
+  async getConsultas(){
+    const auth = JSON.parse(localStorage.getItem('@Auth'));
+    try {
+      const consults =  await api.get('/appointments/next',{
+        headers:{
+          Authorization: `Bearer ${auth.token}`
+        }
+      });
+      this.setState({
+        consultas: consults.data
+      })
+
+    } catch (error) {
+      console.log(error.data)
+    }
+
+  }
+  async getListaMedico(){
+    const auth = JSON.parse(localStorage.getItem('@Auth'));
+    try {
+      const list =  await api.get('/medics',{
+        headers:{
+          Authorization: `Bearer ${auth.token}`
+        }
+      });
+      console.log(list.data);
+      this.setState({
+        listagem: list.data
+      })
+
+    } catch (error) {
+      console.log(error.data)
+    }
+
   }
     render(){
         return(
@@ -160,8 +82,8 @@ export default class HomePacient extends Component {
                    {
                      this.state.consultas.map(item => (
                        <tr>
-                         <td>{item.doutor}</td>
-                         <td>{item.hora}</td>
+                         <td>{item.medic.name}</td>
+                         <td>{moment(item.date).calendar()}</td>
                        </tr>
                      ))
                    }
@@ -184,9 +106,9 @@ export default class HomePacient extends Component {
                       {
                         this.state.listagem.map(item => (
                           <tr>
-                            <td>{item.doutor}</td>
-                            <td>{item.especialidade}</td>
-                            <td>{item.consultas}</td>
+                            <td>{item.name}</td>
+                            <td>{item.especiality}</td>
+                            <td>{item.quantity_consults}</td>
                           </tr>
                         ))
                       }

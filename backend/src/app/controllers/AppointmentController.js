@@ -87,7 +87,7 @@ class AppointmentController {
 
 
     let quantidade = medic.quantity_consults + 1;
-    let quanttidade_paciente = medic.quantity_consults + 1;
+    let quantidade_paciente = medic.quantity_consults + 1;
     
     medic.update({quantity_consults:quantidade});
     user.update({quantity_consults:quantidade_paciente});

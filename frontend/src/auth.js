@@ -5,7 +5,6 @@ export const isAuth = async () =>
 
   const auth = await JSON.parse(localStorage.getItem('@Auth'));
   if (auth) {
-    api.defaults.headers.Authorization = `Bearer ${auth.token}`;
     return true;
   }
 

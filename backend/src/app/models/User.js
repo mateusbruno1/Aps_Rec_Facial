@@ -18,6 +18,7 @@ class User extends Model {
           crm:Sequelize.STRING,
           quantity_consults: Sequelize.INTEGER,
           medic:Sequelize.BOOLEAN,
+          especiality:Sequelize.STRING,
           provider: Sequelize.BOOLEAN,
       },
       {

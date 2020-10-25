@@ -7,6 +7,9 @@ class UserControlller{
       where: {
         medic: true,
       },
+      attributes:[
+        'id','name','crm','especiality','quantity_consults'
+      ]
     });
 
     return res.json(user)
