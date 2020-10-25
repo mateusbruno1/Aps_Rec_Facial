@@ -129,7 +129,11 @@ export default class HomePacient extends Component {
     }
   }
 
-
+  componentDidMount(){
+    const auth = localStorage.getItem('@Auth')
+    const data = JSON.parse(auth)
+    console.log(data.medic);
+  }
     render(){
         return(
           <Container>

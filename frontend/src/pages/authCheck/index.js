@@ -23,8 +23,23 @@ export default class AuthCheck extends Component {
           let valor = chaveValor[1];
           data[chave] = valor;
       });
-      console.log(data);
-      window.location= (`http://127.0.0.1:3000/home`)
+      let stringf = JSON.stringify(data);
+
+      localStorage.setItem('@Auth',JSON.stringify(data))
+
+      let tipo = typeof data.medic === 'string';
+
+
+
+      if (data.medic === 'false') {
+        window.location= (`http://127.0.0.1:3000/home`)
+      }else{
+        if (data.medic === 'true') {
+         window.location= (`http://127.0.0.1:3000/home`)
+        }
+      }
+
+
     }, 5000)
 
   }

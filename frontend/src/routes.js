@@ -14,27 +14,14 @@ import {
   import HomePacient from './pages/homePacient';
   import HomeMedic from './pages/homeMedic';
   import AuthCheck from './pages/authCheck';
+  import {isAuth,isMedic} from './auth'
 
   const Routes = () => {
-
-  const [authenticated, setAuth] = useState(true);
-  const [isMedic, setMedic] = useState(false);
-  const [isAdm, setAdm] = useState(false);
-
-  useEffect(() => {
-    const auth = localStorage.getItem('@Auth');
-
-    if (auth) {
-      api.defaults.headers.Authorization = `Bearer ${JSON.parse(auth.token)}`;
-      setAuth(true);
-      setMedic(auth.user.medic);
-      setAdm(auth.user.provider);
-    }
-  }, []);
+  const auth =  JSON.parse(localStorage.getItem('@Auth'));
 
   const PrivateRoute = ({ component: Component, ...rest }) => (
     <Route {...rest} render={props => (
-      authenticated ? (
+      isAuth() ? (
         <Component {...props} />
       ) : (
         <Redirect to={{ pathname: '/', state: { from: props.location } }} />
@@ -46,7 +33,7 @@ import {
     <Router history={useHistory}>
         <Switch>
           <Route path="/" exact component={Landing} />
-          <PrivateRoute path="/home" component={isMedic ? HomeMedic : HomePacient} />
+          <PrivateRoute path="/home" component={auth.medic === 'true' ? HomeMedic : HomePacient} />
           <Route path="/login" component={Login} exact />
           <Route path="/cadastro" component={Cadastro} exact />
           <Route path="/auth" component={AuthCheck} exact />
