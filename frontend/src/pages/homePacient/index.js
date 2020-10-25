@@ -23,9 +23,8 @@ export default class HomePacient extends Component {
     const data = JSON.parse(auth)
     this.getConsultas();
     this.getListaMedico();
-    const nomediv= data.name.split(' ');
     this.setState({
-      nome: nomediv[0]
+      nome: data.name
     })
   }
   async getConsultas(){
