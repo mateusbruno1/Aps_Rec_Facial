@@ -14,8 +14,9 @@ const medicosOptions = {
       preserveAspectRatio: "xMidYMid slice"
     }
   };
+
   function redirecionarLogin(){
-    document.location.href = 'http://127.0.0.1:5500/Esbo%C3%A7o/index.html';
+    document.location.href = 'http://127.0.0.1:5500/';
   }
 export default class Landing extends Component {
 

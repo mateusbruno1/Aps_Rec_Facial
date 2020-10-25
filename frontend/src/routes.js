@@ -13,6 +13,7 @@ import {
   import Login from './pages/login';
   import HomePacient from './pages/homePacient';
   import HomeMedic from './pages/homeMedic';
+  import AuthCheck from './pages/authCheck';
 
   const Routes = () => {
 
@@ -21,7 +22,7 @@ import {
   const [isAdm, setAdm] = useState(false);
 
   useEffect(() => {
-    const auth = localStorage.getItem('@auth');
+    const auth = localStorage.getItem('@Auth');
 
     if (auth) {
       api.defaults.headers.Authorization = `Bearer ${JSON.parse(auth.token)}`;
@@ -48,6 +49,7 @@ import {
           <PrivateRoute path="/home" component={isMedic ? HomeMedic : HomePacient} />
           <Route path="/login" component={Login} exact />
           <Route path="/cadastro" component={Cadastro} exact />
+          <Route path="/auth" component={AuthCheck} exact />
       </Switch>
     </Router>
   )

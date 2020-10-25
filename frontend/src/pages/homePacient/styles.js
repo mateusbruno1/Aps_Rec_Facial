@@ -3,12 +3,13 @@ import styled from 'styled-components';
 export const Container = styled.div`
 
 
-    background-color: #d4e6ff;
+    background-color: #bfdaf8;
     width: 100%;
     height: 100vh;
     display: flex;
     overflow:hidden;
     flex-wrap:wrap;
+    overflow: auto;
   .left{
     width:20%;
     height: 100%;
@@ -84,7 +85,7 @@ export const Container = styled.div`
         position: absolute;
         font-family: Montserrat;
         bottom: 10px;
-        right: 10px;
+        left: 10px;
       }
 
   }
@@ -104,12 +105,20 @@ export const Container = styled.div`
       width: 100%;
       background-color: #bfdaf8;
       align-items: center;
+        h1 {
+          font-family: Montserrat;
+          color: #314f72;
+          font-size: 28px;
+          padding: 20px;
+          text-align: center;
+        }
       .div-table {
         width: 80%;
-        height:130%;
+        height: 90%;
         table {
           border-collapse: collapse;
           width: 100%;
+          cursor: default;
           }
           tr {
             display: flex;
@@ -123,7 +132,7 @@ export const Container = styled.div`
               font-weight: 500;
               height: 35px;
               align-items: center;
-              background-color: #6c7ae0;
+              background-color: #5d90d0;
               color: #fff;
               width: 100%;
               overflow: auto;
@@ -164,7 +173,8 @@ export const Container = styled.div`
             display: flex;
             border: none;
             outline: none;
-            align-items:center
+            align-items:center;
+            cursor: pointer;
           }
           tr:nth-child(even) {
               background-color: #fff
@@ -180,12 +190,17 @@ export const Container = styled.div`
               font-weight: 500;
               height: 35px;
               color: #808080;
+
+
           }
           tr:nth-child(even) {
               background-color: #f8f6ff
             }
           tr:nth-child(odd) {
-              background:#fff
+              background:#fff;
+          }
+          tr:hover {
+            background-color: #f3f3f3
           }
         }
     }
@@ -196,14 +211,21 @@ export const Container = styled.div`
       width: 100%;
       background-color: #bfdaf8;
       align-items: center;
-
+      h1 {
+          font-family: Montserrat;
+          color: #314f72;
+          font-size: 28px;
+          padding: 20px;
+          text-align: center;
+        }
 
       .table-down{
-        width:80%;
-        height:auto;
+        width: 80%;
+        height: 100%;
         display:flex;
         flex-direction:column;
         align-items:center;
+        cursor: default;
 
         .table-header{
           border-collapse: collapse;
@@ -220,7 +242,7 @@ export const Container = styled.div`
               font-weight: 500;
               height: 35px;
               align-items: center;
-              background-color: #6c7ae0;
+              background-color: #5d90d0;
               color: #fff;
               width: 100%;
               overflow: auto;
@@ -239,7 +261,7 @@ export const Container = styled.div`
         }
         .scroolbar-table-down {
           width: 100%;
-          height: 45%;
+          height: 55%;
           overflow: auto;
           border-bottom-left-radius: 16px;
           border-bottom-right-radius: 16px;
@@ -264,7 +286,8 @@ export const Container = styled.div`
             display: flex;
             border: none;
             outline: none;
-            align-items:center
+            align-items:center;
+            cursor: pointer;
           }
           tr:nth-child(even) {
               background-color: #fff
@@ -286,6 +309,9 @@ export const Container = styled.div`
             }
           tr:nth-child(odd) {
               background:#fff
+          }
+          tr:hover {
+            background-color: #e2e2e2
           }
         }
       }
