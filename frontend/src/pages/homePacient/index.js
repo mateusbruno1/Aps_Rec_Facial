@@ -197,15 +197,19 @@ export default class HomePacient extends Component {
                 />
                 <label>Selecione um horário</label>
                 <div className="div-horarios">
+                  {
+                    this.state.data === null ? null :
+                    <>
                 {
                   this.state.horarios.map(item => (
-                    this.state.data === null ? null :
                     <button
                       className={item.available ? "horario-disponivel" : "horario-indisponivel"}
                       onClick={() => item.available ? this.setState({hora: item.time}) : null}
                       >{item.time}</button>
                   ))
                 }
+                    </>
+                  }
                 </div>
                 <h3>Sua consulta será marcada dia {this.state.data === null ? '--/--/----' : moment(this.state.data).format('l')} às {this.state.hora === '' ? '--:--' : this.state.hora}.</h3>
                 {
