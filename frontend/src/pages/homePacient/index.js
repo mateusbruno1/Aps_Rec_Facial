@@ -161,8 +161,12 @@ export default class HomePacient extends Component {
         }
       });
       this.getConsultas();
+      this.getListaMedico();
       this.setState({
-        isOpen: false
+        isOpen: false,
+        data: null,
+        hora: '',
+        horarios: []
       })
     } catch (error) {
       console.log(error.data)

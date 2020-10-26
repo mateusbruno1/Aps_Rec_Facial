@@ -43,7 +43,7 @@ export const Modal = styled.div`
     .horario-indisponivel {
       font-family: Montserrat;
       font-size: 20px;
-      font-weight: 400;
+      font-weight: 700;
       color: #b2b7ba;
       cursor: default;
       background-color: transparent;
