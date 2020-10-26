@@ -33,12 +33,11 @@ export const Modal = styled.div`
     }
 
     .div-horarios {
-      width: 80%;
-      display: block;
-      align-content: center;
+      width: 70%;
+      display: flex;
       align-items: center;
-      justify-items: center;
       justify-content: space-evenly;
+      flex-wrap:wrap;
     }
 
     .horario-indisponivel {

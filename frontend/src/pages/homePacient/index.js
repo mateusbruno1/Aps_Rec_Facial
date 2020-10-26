@@ -120,7 +120,7 @@ export default class HomePacient extends Component {
   }
   async checkAvailable(id) {
     const auth = await JSON.parse(localStorage.getItem('@Auth'));
-    const date = moment(new Date()).format();
+    const date = moment(this.state.data).format();
     try {
       const check =  await api.get(`/medic/${this.state.idMedico}/available?date=${date}`,{
         headers:{
