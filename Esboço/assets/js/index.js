@@ -121,7 +121,7 @@ btnCadastrar.addEventListener("click", function(event) {
 })
 
 async function loginRecFacial(nome){
-    
+        
         try {
             const {data} = await axios.get(`http://127.0.0.1:3333/sessions/${nome}`);
             
@@ -135,7 +135,7 @@ async function loginRecFacial(nome){
                 window.location= (`http://127.0.0.1:3000/auth?id=${id}&token=${token}&medic=${medic}&provider=${provider}&name=${nome[0]}`);   
             }
         } catch (error) {
-            alert('Usuario não encontrado')
+            console.log('usuario não encontrado');
         }
 
 

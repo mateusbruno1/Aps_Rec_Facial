@@ -17,8 +17,9 @@ class ScheduleController {
     }
     const { date } = req.query;
     const parsedDate = parseISO(date);
-
+    
     const appointments = await Appointment.findAll({
+      
       where: {
         medic_id: req.userId,
         canceled_at: null,
@@ -30,6 +31,13 @@ class ScheduleController {
         },
       },
       order: ['date'],
+      include: [
+        {
+          model: User,
+          as: 'user',
+          attributes: ['id', 'name'],
+        },
+      ]
     })
     return res.json(appointments);
   }
@@ -53,6 +61,7 @@ class ScheduleController {
           [Op.gt]: new Date(),
         }
       },
+      limit: 5,
       order: [
         'date'
       ],
