@@ -10,6 +10,9 @@ export const Container = styled.div`
     overflow:hidden;
     flex-wrap:wrap;
     overflow: auto;
+
+
+
   .left{
     width:20%;
     height: 100%;
@@ -105,6 +108,8 @@ export const Container = styled.div`
       width: 100%;
       background-color: #bfdaf8;
       align-items: center;
+      justify-content: center;
+      border-bottom: 2px solid #eaf3ff;
         h1 {
           font-family: Montserrat;
           color: #314f72;

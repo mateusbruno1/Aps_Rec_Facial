@@ -101,8 +101,10 @@ btnLogin.addEventListener("click", function(event) {
                 console.log(data);
                 const {user,token} = data;
                 const {id,medic,provider,name} = user;
+
+                let nome = name.split(' ');
               
-                window.location= (`http://127.0.0.1:3000/auth?id=${id}&token=${token}&medic=${medic}&provider=${provider}&name=${name}`);   
+                window.location= (`http://127.0.0.1:3000/auth?id=${id}&token=${token}&medic=${medic}&provider=${provider}&name=${nome[0]}`);   
             }
         } catch (error) {
             alert('Usuario não encontrado')

@@ -80,6 +80,7 @@ export const Container = styled.div`
             width: 100%;
 
             button {
+                cursor: pointer;
                 float:right;
                 border: none;
                 outline: none;
@@ -89,6 +90,10 @@ export const Container = styled.div`
                 font-size: 22px;
                 padding: 15px;
                 border-radius: 8px;
+
+                :hover {
+                  opacity: 0.8;
+                }
             }
         }
     }

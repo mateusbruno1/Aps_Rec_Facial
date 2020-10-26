@@ -14,19 +14,19 @@ import {
   import HomePacient from './pages/homePacient';
   import HomeMedic from './pages/homeMedic';
   import AuthCheck from './pages/authCheck';
-  import {isAuth,isMedic} from './auth'
 
   const Routes = () => {
   let auth =  JSON.parse(localStorage.getItem('@Auth'));
   if(!auth){
     auth = {
-      medic:false
+      token: false,
+      medic:false,
     }
   }
 
   const PrivateRoute = ({ component: Component, ...rest }) => (
     <Route {...rest} render={props => (
-      isAuth() ? (
+      auth.token ? (
         <Component {...props} />
       ) : (
         <Redirect to={{ pathname: '/', state: { from: props.location } }} />

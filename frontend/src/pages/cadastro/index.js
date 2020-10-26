@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useEffect, useState} from 'react';
 import { Form, Input } from '@rocketseat/unform';
 import api from '../../services/api';
 import { Container } from './styles';
@@ -6,16 +6,24 @@ import { Container } from './styles';
 function Cadastro() {
 
   const [medico,setMedico] = useState(false);
-  const [state,setState] = useState();
-  const [city,setCity] = useState();
-  const [neighborhood,setNeighborhood] = useState();
-  const [street,setStreet] = useState();
+  const [state,setState] = useState('');
+  const [city,setCity] = useState('');
+  const [neighborhood,setNeighborhood] = useState('');
+  const [street,setStreet] = useState('');
+
+  useEffect(() => {
+    console.log(medico);
+  }, [medico])
 
   const cep = {
       estado:state,
       cidade:city,
       bairro:neighborhood,
       endereco:street
+  }
+
+  function handlerSelect(value) {
+    setMedico(!value)
   }
 
   async function retornaCep(){
@@ -31,6 +39,10 @@ function Cadastro() {
 
     }
 
+  }
+
+  function redirecionarLogin(){
+    document.location.href = 'http://127.0.0.1:5500/Esbo%C3%A7o/';
   }
 
   async function handleSubmit({nome,email,cep,estado,cidade,endereco,bairro,numero,especiality,celular,crm,senha,senha2}){
@@ -55,6 +67,7 @@ function Cadastro() {
 
          })
          alert('Cadastrado com Sucesso');
+         redirecionarLogin();
         }
     } catch (error) {
          alert('Erro ao cadastrar o Usuario tente novamente');
@@ -78,17 +91,17 @@ function Cadastro() {
 
             <div className="div-select">
                 <label>Você é um médico?</label>
-                <select required name="medico">
-                    <option onClick={()=>setMedico(false)} value={false}>Não</option>
-                    <option onClick={()=>setMedico(true)} value={true}>Sim</option>
+                <select onChange={() => handlerSelect(medico)} required name="medico">
+                    <option value={false}>Não</option>
+                    <option value={true}>Sim</option>
                 </select>
             </div>
 
-            {medico
-            ? <Input type="text" name="crm"   placeholder="Digite seu registro no Conselho Regional de Medicina (CRM)" required/>
-            : null}
-            {medico
-            ? <Input type="text" name="especiality"   placeholder="Digite sua especialidade" required/>
+            {medico ?
+              <>
+              <Input type="text" name="crm"   placeholder="Digite seu registro no Conselho Regional de Medicina (CRM)" required/>
+              <Input type="text" name="especiality"   placeholder="Digite sua especialidade" required/>
+              </>
             : null}
 
             <Input type="password" name="senha"    placeholder="Crie uma senha" required/>
