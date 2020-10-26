@@ -2,9 +2,10 @@ import React, {Component} from 'react';
 import api from '../../services/api';
 import patient from '../../assets/svg/patient.svg';
 import moment from 'moment'
-import {Container} from './styles';
+import {Container, Modal as ModalContainer} from './styles';
 import Modal from 'react-modal';
 import {BsInfoCircle} from 'react-icons/bs';
+import {MdClose} from 'react-icons/md';
 import DatePicker from 'react-date-picker';
 
 const customStyles = {
@@ -13,10 +14,10 @@ const customStyles = {
   },
   content : {
     width: '600px',
-    height: '600px',
+    height: '500px',
     maxWidth: '100%',
     maxHeight: '100%',
-    padding: '20px 50px 20px 20px',
+    padding: 0,
     backgroundColor: '#eaf3ff',
     borderRadius: '16px',
     position: 'fixed',
@@ -177,23 +178,40 @@ export default class HomePacient extends Component {
               onRequestClose={() => this.handleModal(this.state.isOpen)}
               style={customStyles}
               contentLabel="Modal">
-                <h2>Selecione uma data</h2>
+                <ModalContainer>
+                  <button
+                    onClick={() => this.handleModal(this.state.isOpen)}
+                    className="button-close">
+                  <MdClose color={'#314f72'} size={22} />
+                  </button>
+                <label>Selecione uma data</label>
                 <DatePicker
                   minDate={new Date()}
                   locale="pt-BR"
                   onChange={res => this.handlerCalendar(res)}
                   value={this.state.data}
                 />
-                <h2>Selecione um horário</h2>
+                <label>Selecione um horário</label>
+                <div className="div-horarios">
                 {
                   this.state.horarios.map(item => (
-                    <button onClick={() => this.setState({hora: item.time})}>{item.time}</button>
+                    <button
+                      className={item.available ? "horario-disponivel" : "horario-indisponivel"}
+                      onClick={() => item.available ? this.setState({hora: item.time}) : null}
+                      >{item.time}</button>
                   ))
                 }
-                <h2>Sua consulta será marcada dia {moment(this.state.data).format('l')} às {this.state.hora}</h2>
-                <button
+                </div>
+                <h3>Sua consulta será marcada dia {this.state.data === null ? '--/--/----' : moment(this.state.data).format('l')} às {this.state.hora === '' ? '--:--' : this.state.hora}.</h3>
+                {
+                  this.state.hora === '' || this.state.data === null ?
+                  null
+                  :
+                  <button
                   className="button-modal"
                   onClick={() => this.confirmar()}>Confirmar</button>
+                }
+                </ModalContainer>
             </Modal>
           <div className="left">
            <div className="perfil">

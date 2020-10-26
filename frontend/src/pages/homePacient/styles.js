@@ -1,8 +1,99 @@
 import styled from 'styled-components';
 
+export const Modal = styled.div`
+    background: #eaf3ff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    overflow: auto;
+    padding: 20px;
+
+    label {
+      padding: 20px;
+      font-family: Montserrat;
+      font-weight: 500;
+      font-size: 18px;
+      color: #314f72
+    }
+
+    .horario-disponivel {
+      font-family: Montserrat;
+      font-size: 20px;
+      cursor: pointer;
+      color: #5d90d0;
+      font-weight: 700;
+      background-color: transparent;
+      outline: none;
+      border: none;
+      align-self: center
+    }
+
+    .div-horarios {
+      width: 80%;
+      display: block;
+      align-content: center;
+      align-items: center;
+      justify-items: center;
+      justify-content: space-evenly;
+    }
+
+    .horario-indisponivel {
+      font-family: Montserrat;
+      font-size: 20px;
+      font-weight: 400;
+      color: #b2b7ba;
+      cursor: default;
+      background-color: transparent;
+      outline: none;
+      border: none;
+    }
+
+    h3 {
+      color: #314f72;
+      padding-top: 40px;
+      font-family: Montserrat;
+      font-weight: 700;
+      font-size: 20px;
+    }
+
+    .button-close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      outline: none;
+      border: none;
+      background-color: transparent;
+      cursor: pointer;
+      color: #314f72;
+    }
+
+    .button-modal {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      cursor: pointer;
+      border-radius: 8px;
+      outline: none;
+      border: none;
+      font-size: 18px;
+      color: #fff;
+      font-family: Montserrat;
+      font-weight: 600;
+      background-color: #5d90d0;
+      width: 130px;
+      height: 55px;
+
+      :hover {
+        opacity: 0.8;
+      }
+    }
+`
+
 export const Container = styled.div`
-
-
     background-color: #bfdaf8;
     width: 100%;
     height: 100vh;
@@ -10,9 +101,6 @@ export const Container = styled.div`
     overflow:hidden;
     flex-wrap:wrap;
     overflow: auto;
-
-
-
   .left{
     width:20%;
     height: 100%;

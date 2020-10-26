@@ -31,13 +31,3 @@ code {
   opacity: 0;
   transform: translateX(-100px);
 }
-
-.ReactModal__Content {
-  align-items: center;
-  justify-content: center;
-}
-
-.ReactModal__Content .button-modal {
-  background-color: green;
-  align-self: center;
-}

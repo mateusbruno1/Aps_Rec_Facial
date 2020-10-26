@@ -37,11 +37,12 @@ import {
   return(
     <Router history={useHistory}>
         <Switch>
-          <Route path="/" exact component={Landing} />
-          <PrivateRoute path="/home" component={auth.medic === 'true' ? HomeMedic : HomePacient} />
+          {/* <Route path="/" exact component={Landing} /> */}
+          <Route path="/" exact component={HomePacient} />
+          {/* <PrivateRoute path="/home" component={auth.medic === 'true' ? HomeMedic : HomePacient} />
           <Route path="/login" component={Login} exact />
           <Route path="/cadastro" component={Cadastro} exact />
-          <Route path="/auth" component={AuthCheck} exact />
+          <Route path="/auth" component={AuthCheck} exact /> */}
       </Switch>
     </Router>
   )
