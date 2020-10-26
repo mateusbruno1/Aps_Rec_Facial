@@ -199,6 +199,7 @@ export default class HomePacient extends Component {
                 <div className="div-horarios">
                 {
                   this.state.horarios.map(item => (
+                    this.state.data === null ? null :
                     <button
                       className={item.available ? "horario-disponivel" : "horario-indisponivel"}
                       onClick={() => item.available ? this.setState({hora: item.time}) : null}
