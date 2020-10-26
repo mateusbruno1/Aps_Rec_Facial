@@ -40,7 +40,7 @@ export default class HomePacient extends Component {
       consultas: [],
       listagem: [],
       nome: '',
-      isOpen: true,
+      isOpen: false,
       data: null,
       horarios: [],
       idMedico: 0,
@@ -153,13 +153,13 @@ export default class HomePacient extends Component {
       medic_id: this.state.idMedico,
       date: `${dataCerta}T${this.state.hora}:00-03:00`
     }
+
     try {
       const confirm =  await api.post(`/appointments`, params, {
         headers:{
           Authorization: `Bearer ${auth.token}`
         }
       });
-      console.log(confirm.data);
       this.getConsultas();
       this.setState({
         isOpen: false
